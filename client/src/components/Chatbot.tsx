@@ -1,53 +1,55 @@
 import { useState } from "react";
-import { Send } from "lucide-react";
+import {
+    ChatContainer,
+    ChatHeader,
+    ChatMessages,
+    ChatInputContainer,
+    ChatInput,
+    SendButton,
+} from "./Chatbot.styles";
 
 export default function Chatbot() {
-    const [messages, setMessages] = useState([
-        { text: "Olá! Como posso te ajudar?", sender: "bot" }
-    ]);
+    const [messages, setMessages] = useState([]);
     const [input, setInput] = useState("");
 
-    const sendMessage = () => {
+    const sendMessage = async () => {
         if (!input.trim()) return;
 
-        const newMessage = { text: input, sender: "user" };
-        setMessages([...messages, newMessage]);
-        setInput("");
+        const userMessage = { text: input, sender: "user" };
+        setMessages([...messages, userMessage]);
 
-        // Simula resposta do bot após 1 segundo
+        setInput(""); // Limpa o input
+
+        // Simulando resposta da API (substituir com chamada real)
         setTimeout(() => {
-            setMessages(prev => [...prev, { text: "Resposta automática!", sender: "bot" }]);
+            const botMessage = { text: "Resposta do Chatbot!", sender: "bot" };
+            setMessages((prev) => [...prev, botMessage]);
         }, 1000);
     };
 
     return (
-        <div className="flex flex-col w-full max-w-md mx-auto bg-gray-900 text-white p-4 rounded-xl shadow-lg">
-            <div className="h-96 overflow-y-auto space-y-2 p-2">
+        <ChatContainer>
+            <ChatHeader>Chatbot</ChatHeader>
+            <ChatMessages>
                 {messages.map((msg, index) => (
-                    <div key={index} className={`p-2 rounded-lg max-w-xs ${msg.sender === "user" ? "bg-blue-500 self-end ml-auto" : "bg-gray-700"}`}>
+                    <div
+                        key={index}
+                        className={`p-2 rounded-lg ${msg.sender === "user" ? "bg-blue-500 text-white self-end" : "bg-gray-300"
+                            }`}
+                    >
                         {msg.text}
                     </div>
                 ))}
-            </div>
-
-            <div className="flex items-center mt-4">
-                <input
+            </ChatMessages>
+            <ChatInputContainer>
+                <ChatInput
                     type="text"
-                    className="flex-1 p-2 bg-gray-800 border border-gray-600 rounded-lg text-white"
-                    placeholder="Digite sua mensagem..."
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
-                    onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+                    placeholder="Digite sua mensagem..."
                 />
-
-                <button
-                    onClick={sendMessage}
-                    className="ml-2 p-2 bg-blue-500 hover:bg-blue-600 rounded-lg"
-                    style={{ cursor: "pointer" }}
-                >
-                    <Send size={20} />
-                </button>
-            </div>
-        </div>
+                <SendButton onClick={sendMessage}>Enviar</SendButton>
+            </ChatInputContainer>
+        </ChatContainer>
     );
 }

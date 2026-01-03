@@ -1,0 +1,58 @@
+# Virtual environments
+.venv/
+venv/
+env/
+.env/
+api/.venv/
+api/venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+*.pyo
+.pytest_cache/
+.mypy_cache/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+*.env
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+
+# Node.js
+node_modules/
+.next/
+out/
+build/
+dist/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# YOLO/ML
+YOLO/dataset/
+YOLO/runs/
+*.pt
+!api/hair/models/best.pt
+
+# OS
+.DS_Store
+Thumbs.db
+*.bak
+
+# Misc
+*.log
+*.tmp
+*.temp
+coverage/
